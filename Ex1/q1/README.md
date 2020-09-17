@@ -2,7 +2,7 @@
 
 ## how to use
 
-Start serve and client, in this order, with:
+Start tcp server and client, in this order, with:
 
 ```
 node server.js
