@@ -48,7 +48,6 @@ client.on('data', (data) => {
   
 client.on('error', async () => {
     console.log('A error accurred');
-    // setTimeout(initClient, 1000);
 });
 
 initClient();
