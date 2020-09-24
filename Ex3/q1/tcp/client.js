@@ -1,6 +1,7 @@
 const net = require('net');
 const readline = require('readline');
 const validator = require('../validator');
+const { sendOperation, receiveMessages } = require("../protocol");
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -31,7 +32,7 @@ const initClient = () => {
                 
                 try {
                     if (validator.isReadyToSend(expression)) {
-                        client.write(JSON.stringify(expression));
+                        sendOperation(client, expression.a, expression.b, expression.op)
                         expression = {}
                     }
                 } catch (e) {
@@ -42,9 +43,9 @@ const initClient = () => {
     });
 }
 
-client.on('data', (data) => {
-    console.log(`${data.toString()}`);
-});
+receiveMessages(client, (message) => {
+    console.log(`Server: ${message.toString()}`);
+})
   
 client.on('error', async () => {
     console.log('A error accurred');
