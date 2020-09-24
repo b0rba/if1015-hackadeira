@@ -1,6 +1,8 @@
 const dgram = require("dgram");
+const { execPath } = require("process");
 const readline = require('readline');
 const validator = require('../validator');
+const { receiveMessages, sendOperation } = require("./protocol");
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -8,9 +10,9 @@ const rl = readline.createInterface({
 })
 
 const client  = dgram.createSocket('udp4');
-client.on("message", (msg, rinfo) => {
-    console.log(msg.toString());
-});
+receiveMessages(client, (msg, rinfo) => {
+    console.log(`Server@${rinfo.address}:${rinfo.port}: ${msg}`);
+  });
   
 client.on("error", async () => {
     console.log("A error accurred");
@@ -35,7 +37,8 @@ rl.addListener('line', (line) => {
         
         try {
             if (validator.isReadyToSend(expression)) {
-                client.send(JSON.stringify(expression), 6969, '127.0.0.1');
+                sendOperation(client, 6969, '127.0.0.1',
+                expression.a, expression.b, expression.op)
                 expression = {}
             }
         } catch (e) {
