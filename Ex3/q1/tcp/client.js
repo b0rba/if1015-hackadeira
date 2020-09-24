@@ -1,7 +1,7 @@
 const net = require('net');
 const readline = require('readline');
 const validator = require('../validator');
-const { sendOperation, receiveMessages } = require("../protocol");
+const { sendOperation, receiveMessages } = require('./protocol');
 
 const rl = readline.createInterface({
     input: process.stdin,

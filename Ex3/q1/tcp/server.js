@@ -2,7 +2,7 @@
 const net = require('net');
 const validator = require('../validator');
 const calculator = require('../calculator');
-const { receiveOperations, sendMessage } = require('../protocol')
+const { receiveOperations, sendMessage } = require('./protocol')
 
 const handleConnection = socket => {
     console.log('Client connected.\n');
