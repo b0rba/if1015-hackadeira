@@ -16,6 +16,13 @@ const client = new calculator.Calculator(
   grpc.credentials.createInsecure()
 );
 
+console.log('-------------------------------')
+console.log('Valid operations: <+, -, *, />');
+console.log('Input example, if i want to do 1 + 2:');
+console.log('1\n2\n+')
+console.log('Result is: 3')
+console.log('-------------------------------')
+
 let expression = {};
 rl.addListener('line', (line) => {
     line = line.toString()
